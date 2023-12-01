@@ -3,10 +3,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import Selector from "@/app/components/common/Selector";
 import ReadOnlyTextArea from "@/app/components/common/ReadOnlyTextArea";
-import {User} from "@clerk/backend";
 import useDebounce from "@/app/hooks/useDebounce";
-import {saveHistory} from "@/utils/clientUtils";
-import {ToolType} from "@prisma/client";
 import {Button} from "@/app/components/common/Button";
 
 enum Option {
@@ -25,33 +22,13 @@ const options = [
     },
 ];
 
-export default function Base64ImageEncoderComponent({
-    user,
-    isProUser,
-}: {
-    user: User | null;
-    isProUser: boolean;
-}) {
+export default function Base64ImageEncoderComponent() {
     const [input, setInput] = useState("");
     const [image, setImage] = useState<File | null>(null);
     const [output, setOutput] = useState("");
     const [currentOption, setCurrentOption] = useState<Option>(options[0].value);
     const debouncedOutput = useDebounce<string>(output, 1000);
 
-    useEffect(() => {
-        if (debouncedOutput) {
-            void saveHistory({
-                user,
-                isProUser,
-                toolType: ToolType.Base64ImageEncoder,
-                onError: () => {
-                },
-                metadata: {
-                    image,
-                },
-            });
-        }
-    }, [debouncedOutput]);
     // Encode a string to Base64
     const encodeBase64 = (file: File | null, callback: (base64: string) => void) => {
         if (file == null) return;
@@ -79,7 +56,7 @@ export default function Base64ImageEncoderComponent({
                 } string`
             );
         }
-    }, [currentOption, input, image, isProUser, user]);
+    }, [currentOption, input, image]);
 
     function handleImageInput(event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files[0])

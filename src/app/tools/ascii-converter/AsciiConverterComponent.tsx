@@ -1,18 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { User } from "@clerk/backend";
+import {useState} from "react";
 import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
 
-export default function AsciiConverterComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+
+export default function AsciiConverterComponent() {
   const [normalString, setNormalString] = useState("DevToolbox");
   const [asciiString, setAsciiString] = useState(
     "68 101 118 84 111 111 108 98 111 120"
@@ -20,21 +12,6 @@ export default function AsciiConverterComponent({
 
   const debouncedNormalString = useDebounce<string>(normalString, 1000);
   const debouncedAsciiString = useDebounce<string>(asciiString, 1000);
-
-  useEffect(() => {
-    if (debouncedNormalString && debouncedAsciiString) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.ColorConverter,
-        onError: () => {},
-        metadata: {
-          normalString,
-          asciiString,
-        },
-      });
-    }
-  }, [debouncedNormalString, debouncedAsciiString]);
 
   const stringToAscii = (input: string): string => {
     let result = "";

@@ -1,33 +1,12 @@
 "use client";
-import { User } from "@clerk/backend";
-import { useEffect, useRef, useState } from "react";
+import {useState} from "react";
 import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
 import QRCode from "react-qr-code";
 
-export default function QrCodeGeneratorComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function QrCodeGeneratorComponent() {
   const [qrText, setQrText] = useState("http://devtoolbox.co");
 
   const debouncedQrText = useDebounce<string>(qrText, 1000);
-
-  useEffect(() => {
-    if (debouncedQrText) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.QrCodeGenerator,
-        onError: () => {},
-        metadata: { qrText },
-      });
-    }
-  }, [debouncedQrText]);
 
   const handleTextChange = (input: string) => {
     setQrText(input);

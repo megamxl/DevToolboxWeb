@@ -1,9 +1,7 @@
 "use client";
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
 
 export default function ColorConverterComponent() {
     const [rgb, setRgb] = useState("255, 255, 255");
@@ -13,6 +11,12 @@ export default function ColorConverterComponent() {
     const debouncedRgb = useDebounce<string>(rgb, 1000);
     const debouncedRgba = useDebounce<string>(rgba, 1000);
     const debouncedHex = useDebounce<string>(hex, 1000);
+
+  useEffect(() => {
+    if (debouncedRgb && debouncedHex && debouncedRgba) {
+
+    }
+  }, [debouncedRgb, debouncedHex, debouncedRgba])
 
   const rgbToHex = (input: string): string => {
     // Remove any spaces and convert to lowercase
@@ -68,7 +72,6 @@ export default function ColorConverterComponent() {
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
       throw Error();
     }
-  };
 
     return `${r}, ${g}, ${b}, 1`;
   }
@@ -216,75 +219,75 @@ export default function ColorConverterComponent() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col gap-4">
-      <div>
-        <p className="font-bold text-sm mb-2"> RGB: </p>
-        <div className="flex gap-2">
-          <input
-            className="px-4 py-2 w-full block rounded-lg border-0
+      <div className="w-full h-full flex flex-col gap-4">
+        <div>
+          <p className="font-bold text-sm mb-2"> RGB: </p>
+          <div className="flex gap-2">
+            <input
+                className="px-4 py-2 w-full block rounded-lg border-0
         bg-gray-700 text-white shadow-sm ring-1 ring-inset
         ring-gray-300 focus:ring-2 focus:ring-inset
         focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            value={rgb}
-            onChange={(e) => handleRgbChange(e.currentTarget.value)}
-          />
-          <button
-            type="button"
-            className="rounded-md bg-indigo-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            onClick={async () => {
-              await navigator.clipboard.writeText(rgb);
-            }}
-          >
-            Copy
-          </button>
+                value={rgb}
+                onChange={(e) => handleRgbChange(e.currentTarget.value)}
+            />
+            <button
+                type="button"
+                className="rounded-md bg-indigo-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                onClick={async () => {
+                  await navigator.clipboard.writeText(rgb);
+                }}
+            >
+              Copy
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <p className="font-bold text-sm mb-2"> RGBA: </p>
-        <div className="flex gap-2">
-          <input
-            className="px-4 py-2 w-full block rounded-lg border-0
+        <div>
+          <p className="font-bold text-sm mb-2"> RGBA: </p>
+          <div className="flex gap-2">
+            <input
+                className="px-4 py-2 w-full block rounded-lg border-0
         bg-gray-700 text-white shadow-sm ring-1 ring-inset
         ring-gray-300 focus:ring-2 focus:ring-inset
         focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            value={rgba}
-            onChange={(e) => handleRgbaChange(e.currentTarget.value)}
-          />
-          <button
-            type="button"
-            className="rounded-md bg-indigo-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            onClick={async () => {
-              await navigator.clipboard.writeText(rgba);
-            }}
-          >
-            Copy
-          </button>
+                value={rgba}
+                onChange={(e) => handleRgbaChange(e.currentTarget.value)}
+            />
+            <button
+                type="button"
+                className="rounded-md bg-indigo-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                onClick={async () => {
+                  await navigator.clipboard.writeText(rgba);
+                }}
+            >
+              Copy
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <p className="font-bold text-sm mb-2"> Hex: </p>
-        <div className="flex gap-2">
-          <input
-            className="px-4 py-2 w-full block rounded-lg border-0
+        <div>
+          <p className="font-bold text-sm mb-2"> Hex: </p>
+          <div className="flex gap-2">
+            <input
+                className="px-4 py-2 w-full block rounded-lg border-0
         bg-gray-700 text-white shadow-sm ring-1 ring-inset
         ring-gray-300 focus:ring-2 focus:ring-inset
         focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            value={hex}
-            onChange={(e) => handleHexChange(e.currentTarget.value)}
-          />
-          <button
-            type="button"
-            className="rounded-md bg-indigo-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            onClick={async () => {
-              await navigator.clipboard.writeText(hex);
-            }}
-          >
-            Copy
-          </button>
+                value={hex}
+                onChange={(e) => handleHexChange(e.currentTarget.value)}
+            />
+            <button
+                type="button"
+                className="rounded-md bg-indigo-500 px-3.5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                onClick={async () => {
+                  await navigator.clipboard.writeText(hex);
+                }}
+            >
+              Copy
+            </button>
+          </div>
         </div>
       </div>
-    </div>
   );
 }

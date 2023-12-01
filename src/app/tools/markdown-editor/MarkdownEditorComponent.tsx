@@ -1,35 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import TextArea from "@/app/components/common/TextArea";
 import FormattedMarkdownOutput from "@/app/components/common/FormattedMarkdownOutput";
-import { User } from "@clerk/backend";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
-import useDebounce from "@/app/hooks/useDebounce";
 
-export default function JsonValidatorComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function JsonValidatorComponent() {
   const [output, setOutput] = useState("");
-  // const debouncedOutput = useDebounce(output, 1000);
-  // useEffect(() => {
-  //   if (debouncedOutput && debouncedOutput !== initialInput) {
-  //     void saveHistory({
-  //       user,
-  //       isProUser,
-  //       toolType: ToolType.MarkdownEditor,
-  //       onError: () => {},
-  //       metadata: {
-  //         output,
-  //       },
-  //     });
-  //   }
-  // }, [debouncedOutput]);
 
   return (
     <div className="w-full h-full flex gap-4">
