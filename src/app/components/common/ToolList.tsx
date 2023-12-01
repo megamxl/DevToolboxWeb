@@ -10,6 +10,10 @@ export type ToolOption = {
 };
 export const toolList: ToolOption[] = [
   {
+    name: "Diff Viewer",
+    path: "/tools/diff-viewer",
+  },
+  {
     name: "JSON Validator",
     path: "/tools/json-validator",
   },
@@ -28,6 +32,10 @@ export const toolList: ToolOption[] = [
   {
     name: "Base64 Encoder",
     path: "/tools/base64encoder",
+  },
+  {
+    name: "Base64 Image Encoder",
+    path: "/tools/base64imageencoder",
   },
   {
     name: "Url Parser",
@@ -50,8 +58,16 @@ export const toolList: ToolOption[] = [
     path: "/tools/regex-checker",
   },
   {
-    name: "Diff Viewer",
-    path: "/tools/diff-viewer",
+    name: "Markdown Editor",
+    path: "/tools/markdown-editor",
+  },
+  {
+    name: "QRCode Generator",
+    path: "/tools/qrcode-generator",
+  },
+  {
+    name: "ASCII Converter",
+    path: "/tools/ascii-converter",
   },
 ];
 
