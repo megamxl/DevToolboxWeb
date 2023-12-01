@@ -1,8 +1,4 @@
-import {
-  BuildingLibraryIcon,
-  CommandLineIcon,
-  UsersIcon,
-} from "@heroicons/react/24/outline";
+import {BuildingLibraryIcon, CommandLineIcon, UsersIcon,} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import Image from 'next/image';
 
@@ -10,22 +6,22 @@ const primaryFeatures = [
   {
     name: "100% Open Source",
     description:
-      "Open source code that lets you do anything you want with it. Add a new tool, self host the app — the choice is yours.",
+      "The base Project is open source and lets you do anything you want with it. Add a new tool, self host the app — the choice is yours.",
     href: "https://github.com/YourAverageTechBro/DevToolboxWeb",
     icon: CommandLineIcon,
   },
   {
     name: "Free To Use",
     description:
-      "100% Free tier without any limitations. No credit card required. Optional paid tier available to save your history and support the project.",
+      "100% Free without any limitations and without any data storing.",
     href: "/tools/json-validator",
     icon: UsersIcon,
   },
   {
     name: "Constant updates",
     description:
-      "New features are constantly being added to the app. Have a feature request? Let us know!",
-    href: "https://github.com/YourAverageTechBro/DevToolboxWeb/issues",
+      "This repo is maintained by me so if I miss a change from the main Repo just submit an issue ",
+    href: "https://github.com/megamxl/DevToolboxWeb/issues",
     icon: BuildingLibraryIcon,
   },
 ];
@@ -156,8 +152,15 @@ export default function Example() {
                 Essential tools for developers
               </h1>
               <p className="mt-6 text-lg leading-8 text-gray-300">
-                Get access to 10+ tools including diff viewer, JSON validator,
-                unix time converter, regex matcher, character counter, and more.
+                This version of The developer Toolbox is a fork from The Repo:
+              </p>
+              <Link href={ "https://github.com/YourAverageTechBro/DevToolboxWeb"}> YourAverageTechBro/DevToolboxWeb </Link>
+              <p>
+                <br/>
+                This fork provides all functionality, but removes the user and history features
+                <br/>
+                <br/>
+                A big thanks to <Link href={"https://github.com/YourAverageTechBro"}> YourAverageTechBro </Link> for making this Project open source
               </p>
               <div className="mt-10 flex items-center gap-x-6">
                 <Link
@@ -233,7 +236,7 @@ export default function Example() {
               All your essential tools in one place
             </h2>
             <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Did we mention DevToolbox is free to use and open source?
+              Did we mention DevToolbox is a fork from a really cool project ?
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
