@@ -1,20 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import TextArea from "@/app/components/common/TextArea";
 import ReadOnlyTextArea from "@/app/components/common/ReadOnlyTextArea";
-import { User } from "@clerk/backend";
-import { ToolType } from "@prisma/client";
 import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
 
-export default function UrlParserComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function UrlParserComponent() {
   const [input, setInput] = useState("");
   const [protocol, setProtocol] = useState("");
   const [host, setHost] = useState("");
@@ -23,20 +14,6 @@ export default function UrlParserComponent({
   const [queryJson, setQueryJson] = useState("");
 
   const debouncedInput = useDebounce(input, 1000);
-
-  useEffect(() => {
-    if (debouncedInput) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.UrlParser,
-        onError: () => {},
-        metadata: {
-          input,
-        },
-      });
-    }
-  }, [debouncedInput]);
 
   const parseUrl = (text: string) => {
     try {

@@ -1,20 +1,11 @@
 "use client";
 
 import * as CryptoJS from "crypto-js";
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import TextArea from "@/app/components/common/TextArea";
-import { User } from "@clerk/backend";
 import useDebounce from "@/app/hooks/useDebounce";
-import { ToolType } from "@prisma/client";
-import { saveHistory } from "@/utils/clientUtils";
 
-export default function HashGeneratorComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function HashGeneratorComponent() {
   const [input, setInput] = useState("");
   const [md5Hash, setMd5Hash] = useState("");
   const [sha1Hash, setSha1Hash] = useState("");
@@ -25,20 +16,6 @@ export default function HashGeneratorComponent({
   const [keccak256Hash, setKeccak256Hash] = useState("");
 
   const debouncedInput = useDebounce<string>(input, 1000);
-
-  useEffect(() => {
-    if (debouncedInput) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.HashGenerator,
-        onError: () => {},
-        metadata: {
-          debouncedInput,
-        },
-      });
-    }
-  }, [debouncedInput]);
 
   const generateMd5Hash = (input: string) =>
     setMd5Hash(CryptoJS.MD5(input).toString());

@@ -1,12 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import Selector from "@/app/components/common/Selector";
 import TextArea from "@/app/components/common/TextArea";
-import { User } from "@clerk/backend";
 import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
 
 const convertToSnakeCase = (input: string): string =>
   input
@@ -81,13 +78,7 @@ const options = [
     value: TransformationOption.constantCase,
   },
 ];
-export default function StringConverterComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function StringConverterComponent() {
   const [transformationOption, setTransformationOption] =
     useState<TransformationOption>(options[0].value);
   const [input, setInput] = useState("");
@@ -95,19 +86,6 @@ export default function StringConverterComponent({
 
   const debouncedOutput = useDebounce(output, 1000);
 
-  useEffect(() => {
-    if (debouncedOutput) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.StringConverter,
-        onError: () => {},
-        metadata: {
-          input,
-        },
-      });
-    }
-  }, [debouncedOutput]);
   const transformText = (text: string) => {
     switch (transformationOption) {
       case TransformationOption.camelCase:

@@ -1,19 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import ReadOnlyTextArea from "@/app/components/common/ReadOnlyTextArea";
-import { User } from "@clerk/backend";
 import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
 
-export default function RegexCheckerComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function RegexCheckerComponent() {
   const [regexExpression, setRegexExpression] = useState(
     "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}"
   );
@@ -23,20 +14,6 @@ export default function RegexCheckerComponent({
   const [output, setOutput] = useState("");
 
   const debouncedOutput = useDebounce(output, 1000);
-
-  useEffect(() => {
-    if (debouncedOutput) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.RegexChecker,
-        onError: () => {},
-        metadata: {
-          input,
-        },
-      });
-    }
-  }, [debouncedOutput]);
 
   const processString = (
     inputString: string,

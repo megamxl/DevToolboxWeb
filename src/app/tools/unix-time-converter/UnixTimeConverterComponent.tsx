@@ -1,10 +1,7 @@
 "use client";
 
 import Selector from "@/app/components/common/Selector";
-import { useCallback, useEffect, useState } from "react";
-import { User } from "@clerk/backend";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
+import {useCallback, useEffect, useState} from "react";
 import useDebounce from "@/app/hooks/useDebounce";
 
 enum TimeOption {
@@ -22,13 +19,7 @@ const timeOptions = [
   { label: "ISO 8601", value: TimeOption.ISO8601 },
 ];
 
-export default function UnixTimeConverterComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function UnixTimeConverterComponent() {
   const [timeOption, setTimeOption] = useState<TimeOption>(
     timeOptions[0].value
   );
@@ -45,20 +36,6 @@ export default function UnixTimeConverterComponent({
   const [relativeTime, setRelativeTime] = useState<string>("");
 
   const debouncedTimeString = useDebounce(timeString, 1000);
-
-  useEffect(() => {
-    if (debouncedTimeString) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.UnixTimeConverter,
-        onError: () => {},
-        metadata: {
-          timeString,
-        },
-      });
-    }
-  }, [debouncedTimeString]);
 
   const generateLocalTime = (timeInMilliseconds: number) =>
     setLocalTime(new Date(timeInMilliseconds).toLocaleString());

@@ -1,12 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Selector from "@/app/components/common/Selector";
 import ReadOnlyTextArea from "@/app/components/common/ReadOnlyTextArea";
-import { User } from "@clerk/backend";
-import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
 
 enum Option {
   encode = "encode",
@@ -25,30 +21,11 @@ const options = [
 ];
 
 export default function Bas64EncoderComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
 }) {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [currentOption, setCurrentOption] = useState<Option>(options[0].value);
-  const debouncedOutput = useDebounce<string>(output, 1000);
 
-  useEffect(() => {
-    if (debouncedOutput) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.Base64Encoder,
-        onError: () => {},
-        metadata: {
-          input,
-        },
-      });
-    }
-  }, [debouncedOutput]);
   // Encode a string to Base64
   const encodeBase64 = (inputString: string) =>
     // Use the btoa function to encode the string to Base64
@@ -73,7 +50,7 @@ export default function Bas64EncoderComponent({
         } string`
       );
     }
-  }, [currentOption, input, isProUser, user]);
+  }, [currentOption, input]);
 
   // Example usage
   return (

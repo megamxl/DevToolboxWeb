@@ -1,11 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import Selector from "@/app/components/common/Selector";
-import { User } from "@clerk/backend";
 import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
 
 enum SortingOption {
   AtoZ = "AtoZ",
@@ -53,13 +50,7 @@ const dedupingOptions = [
     value: DedupingOptions.None,
   },
 ];
-export default function LineSortAndDedupeComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function LineSortAndDedupeComponent() {
   const [currentSortingOption, setCurrentSortingOption] =
     useState<SortingOption>(SortingOption.AtoZ);
   const [currentDedupingOption, setCurrentDedupingOption] =
@@ -67,20 +58,6 @@ export default function LineSortAndDedupeComponent({
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const debouncedOutput = useDebounce(output, 1000);
-
-  useEffect(() => {
-    if (debouncedOutput) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.LineSortAndDedupe,
-        onError: () => {},
-        metadata: {
-          input,
-        },
-      });
-    }
-  }, [debouncedOutput]);
 
   const dedupeString = (
     stringToDedupe: string,

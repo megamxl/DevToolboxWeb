@@ -2,10 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Button } from "@/app/components/common/Button";
-import { StarIcon } from "@heroicons/react/24/outline";
+import {usePathname} from "next/navigation";
+import {SignedIn, SignedOut, UserButton} from "@clerk/nextjs";
+import {Button} from "@/app/components/common/Button";
 
 export type ToolOption = {
   name: string;
@@ -88,10 +87,6 @@ export default function ToolList() {
         href={`https://github.com/YourAverageTechBro/DevToolboxWeb`}
         target="_blank"
       >
-        <div className={"flex items-center gap-2 "}>
-          <StarIcon className={"w-6 h-6"} />
-          Start Us On Github
-        </div>
       </Link>
       {toolList.map((toolOption) => (
         <Link
