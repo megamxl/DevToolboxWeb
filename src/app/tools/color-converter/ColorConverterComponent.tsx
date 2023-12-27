@@ -1,21 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { User } from "@clerk/backend";
+import {useState} from "react";
 import useDebounce from "@/app/hooks/useDebounce";
-import { saveHistory } from "@/utils/clientUtils";
-import { ToolType } from "@prisma/client";
 
 const isHSLColor =
   /^hsl\(\s*(\d+)\s*,\s*(\d*(?:\.\d+)?%)\s*,\s*(\d*(?:\.\d+)?%)\)$/i;
 
-export default function ColorConverterComponent({
-  user,
-  isProUser,
-}: {
-  user: User | null;
-  isProUser: boolean;
-}) {
+export default function ColorConverterComponent() {
   const [rgb, setRgb] = useState("255, 255, 255");
   const [rgba, setRgba] = useState("255, 255, 255, 1");
   const [hex, setHex] = useState("#ffffff");
@@ -26,22 +17,6 @@ export default function ColorConverterComponent({
   const debouncedHex = useDebounce<string>(hex, 1000);
   const debouncedHsl = useDebounce<string>(hsl, 1000);
 
-  useEffect(() => {
-    if (debouncedRgb && debouncedHex && debouncedRgba && debouncedHsl) {
-      void saveHistory({
-        user,
-        isProUser,
-        toolType: ToolType.ColorConverter,
-        onError: () => {},
-        metadata: {
-          rgb,
-          rgba,
-          hex,
-          hsl,
-        },
-      });
-    }
-  }, [debouncedRgb, debouncedHex, debouncedRgba]);
 
   const rgbToHex = (input: string): string => {
     // Remove any spaces and convert to lowercase

@@ -2,7 +2,6 @@
 
 import {useState} from "react";
 import Selector from "@/app/components/common/Selector";
-import useDebounce from "@/app/hooks/useDebounce";
 
 enum SortingOption {
   AtoZ = "AtoZ",
@@ -57,7 +56,6 @@ export default function LineSortAndDedupeComponent() {
     useState<DedupingOptions>(DedupingOptions.Dedupe);
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
-  const debouncedOutput = useDebounce(output, 1000);
 
   const dedupeString = (
     stringToDedupe: string,

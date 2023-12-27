@@ -3,11 +3,9 @@
 import {useState} from "react";
 import TextArea from "@/app/components/common/TextArea";
 import FormattedJsonOutput from "@/app/components/common/FormatedJsonOutput";
-import useDebounce from "@/app/hooks/useDebounce";
 
 export default function JsonValidatorComponent() {
   const [output, setOutput] = useState("");
-  const debouncedOutput = useDebounce(output, 1000);
 
   return (
     <div className="w-full h-full flex gap-4">

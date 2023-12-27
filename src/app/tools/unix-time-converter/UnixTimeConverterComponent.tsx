@@ -2,7 +2,6 @@
 
 import Selector from "@/app/components/common/Selector";
 import {useCallback, useEffect, useState} from "react";
-import useDebounce from "@/app/hooks/useDebounce";
 
 enum TimeOption {
   SecondsSinceEpoch = "Seconds Since Epoch",
@@ -34,8 +33,6 @@ export default function UnixTimeConverterComponent() {
   const [timeInMillisecondsState, setTimeInMillisecondsState] =
     useState<number>(0);
   const [relativeTime, setRelativeTime] = useState<string>("");
-
-  const debouncedTimeString = useDebounce(timeString, 1000);
 
   const generateLocalTime = (timeInMilliseconds: number) =>
     setLocalTime(new Date(timeInMilliseconds).toLocaleString());

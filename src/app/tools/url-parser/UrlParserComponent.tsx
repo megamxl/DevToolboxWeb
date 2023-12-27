@@ -3,7 +3,6 @@
 import {useState} from "react";
 import TextArea from "@/app/components/common/TextArea";
 import ReadOnlyTextArea from "@/app/components/common/ReadOnlyTextArea";
-import useDebounce from "@/app/hooks/useDebounce";
 
 export default function UrlParserComponent() {
   const [input, setInput] = useState("");
@@ -12,8 +11,6 @@ export default function UrlParserComponent() {
   const [path, setPath] = useState("");
   const [query, setQuery] = useState("");
   const [queryJson, setQueryJson] = useState("");
-
-  const debouncedInput = useDebounce(input, 1000);
 
   const parseUrl = (text: string) => {
     try {
