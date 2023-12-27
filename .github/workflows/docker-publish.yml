@@ -39,4 +39,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/DevToolBox:latest
+          tags: megamaxl/DevToolBox:latest
